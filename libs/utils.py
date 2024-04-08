@@ -40,8 +40,7 @@ def ask_question(message, *argv):
 def parse_proxy_file(fpath):
     if (path.exists(fpath) == False):
         print("")
-        print_error("Proxy dosyası bulunamadı! (Yanlış bir yol mu giriyorsunuz acaba?)")
-        print_error("Programdan çıkılıyor!")
+        print_error("Arquivo proxy não encontrado! (Você está entrando no caminho errado?)")
         exit(0)
     
     proxies = []
@@ -60,7 +59,7 @@ def parse_proxy_file(fpath):
         proxies = random.choices(proxies, 50)
         
     print("")
-    print_success(str(len(proxies)) + " Adet proxy yüklendi!")
+    print_success(str(len(proxies)) + " O proxy será instalado")
 
     return proxies
 
