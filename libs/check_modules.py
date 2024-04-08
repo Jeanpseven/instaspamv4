@@ -7,37 +7,37 @@ def check_modules():
     try:
         import requests
     except:
-        print("[-] 'requests' paketi yüklü değil!")
-        print("[*] Yüklemek için 'pip install requests[socks]' yazın!")
+        print("[-] 'requests' pacote não instalado!")
+        print("[*] Digite 'pip install requests' Para instalar ,digite: r")
         sys.exit(0)
 
     try:
         import colorama
     except Exception as e:
-        print("[-] 'colorama' paketi yüklü değil!")
-        print("[*] Yüklemek için 'pip install colorama' yazın!")
+        print("[-] 'colorama' pacote não instalado")
+        print("[*] Para instalar ,digite: pip install colorama' ")
         print(e)
         sys.exit(0)
 
     try:
         import asyncio
     except:
-        print("[-] 'asyncio' paketi yüklü değil!")
-        print("[*] Yüklemek için 'pip install asyncio' yazın!")
+        print("[-] 'asyncio' pacote não instalado")
+        print("[*] Para instalar ,digite: pip install asyncio' ")
         sys.exit(0)
 
     try:
         import proxybroker
     except:
-        print("[-] 'proxybroker' paketi yüklü değil!")
-        print("[*] Yüklemek için 'pip install proxybroker' yazın!")
+        print("[-] 'proxybroker' pacote não instalado")
+        print("[*] Para instalar ,digite: pip install proxybroker' ")
         sys.exit(0)
 
     try:
         import warnings
     except:
-        print("[-] 'warnings' paketi yüklü değil!")
-        print("[*] Yüklemek için 'pip install warnings' yazın!")
+        print("[-] 'warnings' pacote não instalado")
+        print("[*] Para instalar ,digite: pip install warnings' ")
         sys.exit(0)
 
     import warnings
