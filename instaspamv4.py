@@ -1,6 +1,14 @@
-# coding=utf-8
-#!/usr/bin/env python3
+import subprocess
 
+def install_proxybroker():
+    try:
+        subprocess.run(["pip", "install", "proxybroker"])
+    except Exception as e:
+        print(f"Erro ao instalar o ProxyBroker: {e}")
+
+install_proxybroker()
+
+# Agora você pode importar os módulos necessários do ProxyBroker e outros módulos
 from libs.check_modules import check_modules
 from sys import exit
 from os import _exit
@@ -46,94 +54,92 @@ def video_attack_process(video_url, proxy_list):
         report_video_attack(video_url, proxy)
 
 def video_attack(proxies):
-    video_url = ask_question("Şikayet etmek istediğiniz videonun bağlantısını girniz")
+    video_url = ask_question("Insira o link do vídeo que deseja denunciar: ")
     print(Style.RESET_ALL)
     if (len(proxies) == 0):
         for k in range(5):
             p = Process(target=video_attack_process, args=(video_url, [],))
             p.start()
-            print_status(str(k + 1) + ". İşlem Açıldı!")
+            print_status(str(k + 1) + ". Processo Iniciado!")
             if (k == 5): print()
         return
 
     chunk = list(chunks(proxies, 10))
 
     print("")
-    print_status("Video şikayeti saldırısı başlatılıyor!\n")
+    print_status("Ataque de denúncia de vídeo iniciado!\n")
 
     i = 1
     for proxy_list in chunk:
         p = Process(target=video_attack_process, args=(video_url, proxy_list,))
         p.start()
-        print_status(str(i) + ". İşlem Açıldı!")
+        print_status(str(i) + ". Processo Iniciado!")
         if (k == 5): print()
         i = i + 1
 
 def profile_attack(proxies):
-    username = ask_question("Şikayet etmek istediğiniz kişinin kullanıcı adını giriniz")
+    username = ask_question("Insira o nome de usuário do perfil que deseja denunciar: ")
     print(Style.RESET_ALL)
     if (len(proxies) == 0):
         for k in range(5):
             p = Process(target=profile_attack_process, args=(username, [],))
             p.start()
-            print_status(str(k + 1) + ". İşlem Açıldı!")
+            print_status(str(k + 1) + ". Processo Iniciado!")
         return
 
     chunk = list(chunks(proxies, 10))
 
     print("")
-    print_status("Profil şikayeti saldırısı başlatılıyor!\n")
+    print_status("Ataque de denúncia de perfil iniciado!\n")
 
     i = 1
     for proxy_list in chunk:
         p = Process(target=profile_attack_process, args=(username, proxy_list,))
         p.start()
-        print_status(str(i) + ". İşlem Açıldı!")
+        print_status(str(i) + ". Processo Iniciado!")
         if (k == 5): print()
         i = i + 1
 
 def main():
-    print_success("Modüller yüklendi!\n")
+    print_success("Módulos carregados!\n")
 
-    ret = ask_question("Proxy kullanmak ister misiniz? [E/H]")
+    ret = ask_question("Deseja usar proxies? [S/N]")
 
     proxies = []
 
-    if (ret == "E" or ret == "e"):
-        ret = ask_question("Proxylerinizi internetten toplamak ister misiniz? [E/H]")
+    if (ret == "S" or ret == "s"):
+        ret = ask_question("Deseja coletar proxies da internet? [S/N]")
 
-        if (ret == "E" or ret == "e"):
-            print_status("Internetten proxy toplanıyor! Bu biraz uzun sürebilir.\n")
+        if (ret == "S" or ret == "s"):
+            print_status("Coletando proxies da internet! Isso pode levar algum tempo.\n")
             proxies = find_proxies()
-        elif (ret == "H" or ret == "h"):
-            print_status("Lütfen bir dosyada maksimum 50 proxy bulunsun!")
-            file_path = ask_question("Proxy listenizin yolunu giriniz")
+        elif (ret == "N" or ret == "n"):
+            print_status("Por favor, coloque no máximo 50 proxies em um arquivo!")
+            file_path = ask_question("Insira o caminho do seu arquivo de proxies: ")
             proxies = parse_proxy_file(file_path)
         else:
-            print_error("Cevap anlaşılamadı, çıkılıyor!")
+            print_error("Resposta não compreendida, saindo!")
             exit()
 
-        print_success(str(len(proxies)) + " Adet proxy bulundu!\n")
-    elif (ret == "H" or ret == "h"):
+        print_success(str(len(proxies)) + " proxies encontrados!\n")
+    elif (ret == "N" or ret == "n"):
         pass
     else:
-        print_error("Cevap anlaşılamadı, çıkılıyor!")
+        print_error("Resposta não compreendida, saindo!")
         exit()
 
-    
-
     print("")
-    print_status("1 - Profili şikayet et.")
-    print_status("2 - Bir videoyu şikayet et.")
-    report_choice = ask_question("Lütfen şikayet yöntemini seçin")
+    print_status("1 - Denunciar perfil.")
+    print_status("2 - Denunciar um vídeo.")
+    report_choice = ask_question("Por favor, escolha o método de denúncia: ")
     print("")
 
     if (report_choice.isdigit() == False):
-        print_error("Cevap anlaşılmadı.")
+        print_error("Resposta não compreendida.")
         exit(0)
     
     if (int(report_choice) > 2 or int(report_choice) == 0):
-        print_error("Cevap anlaşılmadı.")
+        print_error("Resposta não compreendida.")
         exit(0)
 
     if (int(report_choice) == 1):
@@ -147,6 +153,6 @@ if __name__ == "__main__":
         main()
         print(Style.RESET_ALL)
     except KeyboardInterrupt:
-        print("\n\n" + Fore.RED + "[ * ] Program kapatılıyor!")
+        print("\n\n" + Fore.RED + "[ * ] Programa encerrado!")
         print(Style.RESET_ALL)
         _exit(0)
