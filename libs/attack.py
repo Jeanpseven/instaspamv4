@@ -170,14 +170,14 @@ def report_profile_attack(username, proxy):
             timeout=10
         )
     except:
-        print_error("Bağlantı hatası oluştu! (FormRequestsError)")
+        print_error("Ocorreu um erro de conexão! (FormRequestsError)")
         return
     
     if (res.status_code != 200):
-        print_error("Bağlantı hatası oluştu! (STATUS CODE:", res.status_code, ")")
+        print_error("Ocorreu um erro de conexão! (STATUS CODE:", res.status_code, ")")
         return
     
-    print_success("Başarıyla şikayet edildi!")
+    print_success("Relatado com sucesso!")
 
 
 
